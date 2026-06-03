@@ -1,4 +1,4 @@
-// detail.js - Gelişmiş detay gösterimi
+// detail.js - Akıllı ikon gösterimi (img ve FontAwesome desteği)
 const urlParams = new URLSearchParams(window.location.search);
 const type = urlParams.get('type');
 const id = urlParams.get('id');
@@ -21,7 +21,6 @@ function renderInfoGrid(item, type) {
     const grid = document.getElementById('infoGrid');
     if (!grid) return;
     grid.innerHTML = '';
-    
     if (type === 'tool') {
         if (item.category) grid.innerHTML += `<div class="info-card"><i class="fas fa-tag"></i><strong>Kategori</strong><br>${item.category}</div>`;
         if (item.usage) grid.innerHTML += `<div class="info-card"><i class="fas fa-terminal"></i><strong>Kullanım</strong><br><code style="font-size:0.7rem;">${item.usage.substring(0, 30)}...</code></div>`;
@@ -36,19 +35,36 @@ function renderInfoGrid(item, type) {
 }
 
 if (item) {
-    // Başlık ve ikon
-    if (item.icon) {
-        document.getElementById('detailIcon').innerHTML = item.icon;
+    // ========== AKILLI İKON GÖSTERİMİ ==========
+    const iconContainer = document.getElementById('detailIcon');
+    if (iconContainer) {
+        // Eğer item.icon bir img etiketi içeriyorsa (HTML)
+        if (item.icon && typeof item.icon === 'string' && item.icon.trim().startsWith('<img')) {
+            iconContainer.innerHTML = item.icon;
+        } 
+        // Eğer item.icon bir FontAwesome sınıfı ise (örn. "fa-chart-line")
+        else if (item.icon && !item.icon.includes('<')) {
+            iconContainer.innerHTML = `<i class="fas ${item.icon}" style="font-size: 3rem; color: #2dd4bf;"></i>`;
+        }
+        // Hiçbiri yoksa varsayılan ikon
+        else {
+            iconContainer.innerHTML = `<i class="fas fa-shield-alt" style="font-size: 3rem; color: #2dd4bf;"></i>`;
+        }
     }
+    
     document.getElementById('detailTitle').innerText = item.name;
     
     // Severity badge (sadece tehditler için)
     if (type === 'threat' && item.severity) {
         const badge = document.getElementById('severityBadge');
-        badge.innerText = `⚠️ ${item.severity}`;
-        badge.className = `severity-badge ${getSeverityClass(item.severity)}`;
+        if (badge) {
+            badge.innerText = `⚠️ ${item.severity}`;
+            badge.className = `severity-badge ${getSeverityClass(item.severity)}`;
+            badge.style.display = 'inline-block';
+        }
     } else {
-        document.getElementById('severityBadge').style.display = 'none';
+        const badge = document.getElementById('severityBadge');
+        if (badge) badge.style.display = 'none';
     }
     
     // Kısa açıklama
@@ -60,6 +76,7 @@ if (item) {
     // Uzun açıklama
     if (item.longDesc) {
         document.getElementById('detailLongDesc').innerHTML = `<strong><i class="fas fa-align-left"></i> Detaylı Bilgi</strong><br><p style="margin-top:0.5rem;">${item.longDesc}</p>`;
+        document.getElementById('detailLongDesc').style.display = 'block';
     } else {
         document.getElementById('detailLongDesc').style.display = 'none';
     }
@@ -67,6 +84,7 @@ if (item) {
     // Kullanım (sadece araçlar)
     if (type === 'tool' && item.usage) {
         document.getElementById('detailUsage').innerHTML = `<strong><i class="fas fa-code"></i> Kullanım Komutu</strong><div class="code-block">${item.usage}</div>`;
+        document.getElementById('detailUsage').style.display = 'block';
     } else {
         document.getElementById('detailUsage').style.display = 'none';
     }
@@ -74,6 +92,7 @@ if (item) {
     // Örnek (sadece araçlar)
     if (type === 'tool' && item.example) {
         document.getElementById('detailExample').innerHTML = `<strong><i class="fas fa-lightbulb"></i> Örnek Kullanım</strong><div class="code-block">${item.example}</div>`;
+        document.getElementById('detailExample').style.display = 'block';
     } else {
         document.getElementById('detailExample').style.display = 'none';
     }
@@ -81,6 +100,7 @@ if (item) {
     // Çözüm/Korunma (sadece tehditler)
     if (type === 'threat' && item.solution) {
         document.getElementById('detailSolution').innerHTML = `<strong><i class="fas fa-lock"></i> Korunma Yöntemleri</strong><br><p>${item.solution}</p>`;
+        document.getElementById('detailSolution').style.display = 'block';
     } else {
         document.getElementById('detailSolution').style.display = 'none';
     }
@@ -88,35 +108,39 @@ if (item) {
     // Ekstra bilgi
     if (item.extra) {
         document.getElementById('detailExtra').innerHTML = `<strong><i class="fas fa-star"></i> Öne Çıkan Özellik</strong><br>${item.extra}`;
+        document.getElementById('detailExtra').style.display = 'block';
     } else {
         document.getElementById('detailExtra').style.display = 'none';
     }
     
-    // URL bağlantısı (kaynaklar için)
-    if (type === 'resource' && item.url) {
+    // URL bağlantısı
+    if ((type === 'resource' && item.url) || (type === 'tool' && item.url)) {
         document.getElementById('detailUrl').innerHTML = `<strong><i class="fas fa-external-link-alt"></i> Kaynak Linki</strong><br><a href="${item.url}" target="_blank" class="external-link">${item.url} <i class="fas fa-arrow-right"></i></a>`;
-    } else if (type === 'tool' && item.url) {
-        document.getElementById('detailUrl').innerHTML = `<strong><i class="fas fa-globe"></i> Resmi Site</strong><br><a href="${item.url}" target="_blank" class="external-link">${item.url} <i class="fas fa-arrow-right"></i></a>`;
+        document.getElementById('detailUrl').style.display = 'block';
     } else {
         document.getElementById('detailUrl').style.display = 'none';
     }
     
-    // Paylaş butonu (sayfa linkini kopyala)
-    document.getElementById('shareBtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        navigator.clipboard.writeText(window.location.href);
-        alert('Bağlantı kopyalandı!');
-    });
+    // Paylaş butonu
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigator.clipboard.writeText(window.location.href);
+            alert('Bağlantı kopyalandı!');
+        });
+        shareBtn.style.display = 'inline-flex';
+    }
     
 } else {
     document.getElementById('detailTitle').innerText = 'Bilgi Bulunamadı';
     document.getElementById('detailDesc').innerHTML = 'Aradığınız içerik mevcut değil veya yanlış bir bağlantı kullandınız.';
-    document.getElementById('infoGrid').style.display = 'none';
+    if (document.getElementById('infoGrid')) document.getElementById('infoGrid').style.display = 'none';
     document.getElementById('detailLongDesc').style.display = 'none';
     document.getElementById('detailUsage').style.display = 'none';
     document.getElementById('detailExample').style.display = 'none';
     document.getElementById('detailSolution').style.display = 'none';
     document.getElementById('detailExtra').style.display = 'none';
     document.getElementById('detailUrl').style.display = 'none';
-    document.getElementById('shareBtn').style.display = 'none';
+    if (document.getElementById('shareBtn')) document.getElementById('shareBtn').style.display = 'none';
 }
