@@ -1,1 +1,0 @@
-# Siber-Guvenlik-Araclari
