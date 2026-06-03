@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard | Siber Güvenlik Rehberi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><a href="index.html"><i class="fas fa-shield-haltered">CyberGuard</i></a></div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Ana Sayfa</a></li>
+                <li><a href="tools.html"><i class="fas fa-tools"></i> Araçlar</a></li>
+                <li><a href="threats.html"><i class="fas fa-skull-crossbones"></i> Tehlikeler</a></li>
+                <li><a href="education.html"><i class="fas fa-graduation-cap"></i> Eğitim & Kaynaklar</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1><i class="fas fa-shield-virus"></i> Siber Güvenlik Dizin Rehberi</h1>
+        <p>En güncel tehditler, profesyonel güvenlik araçları ve korunma yöntemleri - kategorize edilmiş ve herkes için ücretsiz.</p>
+        <a href="tools.html" class="btn-primary"><i class="fas fa-arrow-right"></i> Araçları Keşfet</a>
+    </section>
+
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card"><i class="fas fa-shield-alt"></i><h3>7+</h3><p>Güvenlik Aracı</p></div>
+            <div class="stat-card"><i class="fas fa-bug"></i><h3>10+</h3><p>Tehdit Türü</p></div>
+            <div class="stat-card"><i class="fas fa-book"></i><h3>15+</h3><p>Kaynak & Eğitim</p></div>
+        </div>
+
+        <div class="section-title"><i class="fas fa-chart-line"></i> Öne Çıkan Araçlar</div>
+        <div class="cards-grid" id="featuredTools"></div>
+
+        <div class="section-title"><i class="fas fa-biohazard"></i> Kritik Tehditler</div>
+        <div class="cards-grid" id="featuredThreats"></div>
+    </div>
+
+    <footer>
+        <p><i class="fas fa-laptop-code"></i> Eğitim amaçlıdır - Siber güvenlik farkındalığını artırmak için hazırlanmıştır.</p>
+        <p>© 2025 CyberGuard | Alperen Gönül</p>
+    </footer>
+
+    <script src="matrix.js"></script>
+    <script src="data.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

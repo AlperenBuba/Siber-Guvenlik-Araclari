@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard | Siber Tehditler</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><a href="index.html"><i class="fas fa-shield-haltered">CyberGuard</i></a></div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Ana Sayfa</a></li>
+                <li><a href="tools.html"><i class="fas fa-tools"></i> Araçlar</a></li>
+                <li><a href="threats.html" class="active"><i class="fas fa-skull-crossbones"></i> Tehlikeler</a></li>
+                <li><a href="education.html"><i class="fas fa-graduation-cap"></i> Eğitim & Kaynaklar</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-biohazard"></i> Güncel Siber Tehlikeler</h1>
+            <p>Ransomware'den Phishing'e, DDoS'tan Zero-Day'e tüm tehditler ve savunma yöntemleri.</p>
+        </div>
+        <div class="search-bar"><input type="text" id="searchThreats" placeholder="🔍 Tehdit ara... (ör. ransomware, mitm)"></div>
+        <div class="cards-grid" id="allThreats"></div>
+    </div>
+
+    <footer><p>© 2025 CyberGuard | Alperen Gönül</p></footer>
+    <script src="matrix.js"></script>
+    <script src="data.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard | Detay</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .severity-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+        .severity-critical { background: #7f1a1a; color: #fecaca; }
+        .severity-high { background: #9a3412; color: #fed7aa; }
+        .severity-medium { background: #854d0e; color: #fef08a; }
+        .severity-low { background: #166534; color: #bbf7d0; }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .info-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .info-card i { font-size: 1.8rem; color: #2dd4bf; margin-bottom: 0.5rem; display: block; }
+        .code-block {
+            background: #0a0f1a;
+            padding: 1rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            border-left: 3px solid #2dd4bf;
+            margin: 0.5rem 0;
+        }
+        .external-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2dd4bf20;
+            padding: 8px 16px;
+            border-radius: 30px;
+            color: #2dd4bf;
+            text-decoration: none;
+            margin-top: 1rem;
+        }
+        .external-link:hover { background: #2dd4bf40; }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><a href="index.html"><i class="fas fa-shield-haltered">CyberGuard</i></a></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="tools.html">Araçlar</a></li>
+                <li><a href="threats.html">Tehlikeler</a></li>
+                <li><a href="education.html">Eğitim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container detail-container">
+        <div class="detail-card">
+            <div class="detail-header">
+                <div id="detailIcon" style="display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px;"></div>
+                <h1 id="detailTitle">Yükleniyor...</h1>
+                <span id="severityBadge" class="severity-badge"></span>
+            </div>
+            
+            <div class="detail-content">
+                <div id="detailDesc" class="detail-section"></div>
+                
+                <!-- Hızlı bilgi kartları -->
+                <div class="info-grid" id="infoGrid"></div>
+                
+                <div id="detailLongDesc" class="detail-section"></div>
+                <div id="detailUsage" class="detail-section"></div>
+                <div id="detailExample" class="detail-section"></div>
+                <div id="detailSolution" class="detail-section"></div>
+                <div id="detailExtra" class="detail-section"></div>
+                
+                <!-- İlgili bağlantılar -->
+                <div id="detailUrl" class="detail-section"></div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: space-between; align-items: center;">
+                <a href="javascript:history.back()" class="btn-primary"><i class="fas fa-arrow-left"></i> Geri Dön</a>
+                <a href="#" id="shareBtn" class="external-link" style="margin-top:0;"><i class="fas fa-share-alt"></i> Paylaş</a>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>© 2025 CyberGuard | Alperen Gönül</p></footer>
+    <script src="matrix.js"></script>
+    <script src="data.js"></script>
+    <script src="detail.js"></script>
+</body>
+</html>
